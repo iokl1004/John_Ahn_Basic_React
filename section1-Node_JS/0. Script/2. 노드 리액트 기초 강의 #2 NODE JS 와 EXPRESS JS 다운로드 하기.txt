@@ -1,0 +1,50 @@
+2. 노드 리액트 기초 강의 #2 NODE JS 와 EXPRESS JS 다운로드 하기
+
+NODE JS가 자동차 엔진이라면 NODE JS를 이용해서 자동차를 만드는게 EXPRESS JS라는것이다.
+NODE JS를 조금 더 쉽게 이용 할 수 있게 해주는 프레임워크이다.
+
+nodejs 버전 확인
+cmd창 Open -> node -v 입력 후 Enter
+v20.15.0 이것과 같이 버전이 나오면 있는것이고, 없으면 Download를 받아야 한다.
+Current 버전은 최신 버전
+LTS버전은 안정화 버전
+
+npmpackage 생성을 위해 개발 폴더안에서
+cmd창을 열어서, npm init을 한다.
+계속 Enter를 하다보면 author입력하는 부분에 이름을 입력하면됨.
+그러면 package.json 파일이 생성됨.
+
+개발폴더에 index.js 파일 생성 (백엔드의 시작점이 되는 파일임)
+
+express 설치!
+npm install express --save
+
+---
+
+const express = require('express')	// express 모듈을 가져온다!
+const app = express()			    // 새로운 익스프레스 app을 만든다!
+const port = 5000				    // port는 아무렇게 4000번해도 되고, 5000번으로 해도된다!
+
+app.get('/', (req, res) => res.send('Hello World!~~ 안녕하세요~'))	// root 디렉토리에 오면 Hello World를 출력 되게끔 해준다!
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))	// 5000번 포트에서 해당 앱을 실행하게끔 해주는 것이다!
+
+---
+
+(package.json) package.json 파일 수정
+
+{
+  "name": "boiler-plate",
+  "version": "1.0.0",
+  "description": "20240904 START",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",		// 추가
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "POP",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

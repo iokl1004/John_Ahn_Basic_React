@@ -1,0 +1,40 @@
+3. 노드 리액트 기초 강의 #3 몽고 DB 연결
+
+- 몽고 DB 사이트 접속 후 회원가입 하고 로그인!
+몽고 DB 사이트 : https://www.mongodb.com/ko-kr
+
+- Deploy your cluster에서는 M0 선택
+Cluster Name은 boilerplate 입력 후 Cluster 생성
+
+- MongoDB User ID/PW 입력 후 Creater User
+
+- Connect to boilerplate 단계에서 Connect to your application의 Drivers 선택
+
+- 3. Add your connection string into your application code에서 "mongodb+srv://......." 부분 Copy를 한다!
+
+- Mongoose 설치! (몽고DB 사용하는것을 굉장히 편하게 사용하게 해주는 Tool임!)
+npm install mongoose --save
+
+Mongoose를 이용해서 어플리케이션과 몽고DB를 연결할거다!
+
+---
+(index.js)
+const express = require('express')	// express 모듈을 가져온다!
+const app = express()			    // 새로운 익스프레스 app을 만든다!
+const port = 5000				    // port는 아무렇게 4000번해도 되고, 5000번으로 해도된다!
+
+// Mongoose 설정
+const mongoose = require('mongoose')
+// mongoose 6버전 미만
+// mongoose.connect('mongodb+srv://iokl1004:doslzhf123@boilerplate.sepbw.mongodb.net/?retryWrites=true&w=majority&appName=boilerplate', {
+//     useNewUrlParser : true, useUnifiedTopology : true, useCreateIndex : true, useFindAndModify : false
+// }).then(() => console.log('MongoDB Connected..'))
+
+// mongoose 6버전 이상 (mongoose 6버전 이상에선 더이상 useNewUrlParser, useUnifiedTopology, useFindAndModify, useCreateIndex 요 친구들을 지원하지 않음)
+mongoose.connect('mongodb+srv://iokl1004:doslzhf123@boilerplate.sepbw.mongodb.net/?retryWrites=true&w=majority&appName=boilerplate')
+.then(() => console.log('MongoDB Connected..'))
+.catch(err => console.log(err))
+
+app.get('/', (req, res) => res.send('Hello World!~~ 안녕하세요~'))	// root 디렉토리에 오면 Hello World를 출력 되게끔 해준다!
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))	// 5000번 포트에서 해당 앱을 실행하게끔 해주는 것이다!

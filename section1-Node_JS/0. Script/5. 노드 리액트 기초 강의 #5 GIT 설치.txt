@@ -1,0 +1,28 @@
+5. 노드 리액트 기초 강의 #5 GIT 설치
+
+Git이란? 분산버전관리 시스템
+만약 여러명이 한 사이트를 위해 짜고 있다!
+한사람은 유저 관련, 한 사람은 상품 관련 을 개발하고 있다하면,
+해당 모듈들을 합칠 수도 있고, 다른사람들에게 보여줄수도 있고,
+언제 누가 개발 및 수정을 하였는지 확인이 가능하다!
+
+깃 버전 확인법
+cmd창 Open > git --version
+
+깃 설치
+https://git-scm.com/
+
+$ git add.
+Working Directory에 있는 파일들 전부를 Staging Area로 옮겨준다.
+
+.gitigonre 파일에 적혀있는 폴더는 git에 올리지 않겠다는 뜻이다.
+예) node_modules 라고 적혀있다면 해당 node_modules 폴더는 올리지 않음
+
+$ git status
+현재 Staging Area에 올라간 파일들을 확인 할 수 있음.
+
+$ git rm --cached node_modules -r
+Staging Area에 있는 node_modules 폴더를 삭제시킨다.
+
+$ git commit -m "메시지명"
+Staging Area에 있는파일들을 git repository에 업로드를 한다.

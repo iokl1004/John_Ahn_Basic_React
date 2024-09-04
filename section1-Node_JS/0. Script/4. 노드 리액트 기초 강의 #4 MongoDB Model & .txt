@@ -1,0 +1,49 @@
+4. 노드 리액트 기초 강의 #4 MongoDB Model & Schema
+
+Model이란? 스키마를 감싸주는 역할을 함.
+
+스키마란?
+예를들어 상품에 관련된 글을 작성한다고 하면
+글을 작성한 사람
+글을 작성할때 해당 포스트의 이름이 무엇인지
+해당 글의 타입이 무엇인지 글의 길이는 몇인지
+
+models 폴더 생성
+models > User.js 파일 생성
+---
+(User.js)
+const mongoose = require('mongoose');
+
+const userSchma = mongoose.Schema({
+    name: {
+        type : String,
+        maxlength: 50
+    },
+    email: {
+        type : String,
+        trim: true, // space를 없애주는 역할을 함.
+        unique:1
+    },
+    password: {
+        type : String,
+        minlength : 5
+    },
+    lastname: {
+        type : String,
+        maxlength : 50
+    },
+    role: {
+        type : Number,
+        default: 0  // 임의로 롤을 지정하지 않을경우 0값 입력
+    },
+    image: String,
+    token :{        // 유효성 검사를 할 수 있음.
+        type : String
+    },
+    tokenExp: {
+        type : Number
+    }
+})
+
+const User = mongoose.model('User', userSchma)
+module.exports = { User }
