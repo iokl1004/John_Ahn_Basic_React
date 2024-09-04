@@ -1,9 +1,15 @@
 6. 노드 리액트 기초 강의 #6 SSH를 이용해 GITHUB 연결
 
+git push를 통해서 Git repository(LOCAL)에 있는 파일들을 git repository (REMOTE)로 옮긴다!
+
 GIT? 소스코드를 관리 할 수 있는 Tool
 Git Hub? Git을 사용하는 Cloud 서비스이다.
+
+---
 
 git허브 가입
 https://github.com
 
-git push를 통해서 Git repository(LOCAL)에 있는 파일들을 git repository (REMOTE)로 옮긴다!
+- 구글에 GIT SSH 검색 후, 사이트 들어가기
+-. 아래의 코드 복사 후, email은 본인 이메일로 할 것.
+ssh-keygen -t ed25519 -C "your_email@example.com"
