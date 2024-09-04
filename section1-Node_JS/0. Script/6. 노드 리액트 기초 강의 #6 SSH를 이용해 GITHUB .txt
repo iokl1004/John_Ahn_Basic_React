@@ -10,6 +10,8 @@ Git Hub? Git을 사용하는 Cloud 서비스이다.
 git허브 가입
 https://github.com
 
+새 SSH 키 생성
 - 구글에 GIT SSH 검색 후, 사이트 들어가기
--. 아래의 코드 복사 후, email은 본인 이메일로 할 것.
+- 아래의 코드 복사 후, email은 본인 이메일로 할 것.
 ssh-keygen -t ed25519 -C "your_email@example.com"
+- 나머지 사항들은 Enter
