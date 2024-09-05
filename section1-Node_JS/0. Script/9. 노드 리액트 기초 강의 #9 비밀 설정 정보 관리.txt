@@ -1,8 +1,35 @@
+9. 노드 리액트 기초 강의 #9 비밀 설정 정보 관리
+
+예) index.js파일에서의 mongoose 소스
+
+config폴더 생성 후, dev.js, key.js, prod.js 파일 추가 및 index.js 파일 수정
+---
+(config/key.js)
+// 환경변수
+// Local 환경인경우 development
+// Deploy(배포) 한 후에는 production 이라고 나옴
+if(process.env.NODE_ENV === 'production') {
+    module.exports = require('./prod');
+} else {
+    module.exports = require('./dev');
+}
+---
+(config/dev.js)
+module.exports = {
+    mongoURI:'mongodb+srv://iokl1004:doslzhf123@boilerplate.sepbw.mongodb.net/?retryWrites=true&w=majority&appName=boilerplate'
+}
+---
+(config/prod.js)
+module.exports = {
+    mongoURI : process.env.MONGO_URI
+}
+---
+(index.js)
 const express = require('express')	// express 모듈을 가져온다!
 const app = express()			    // 새로운 익스프레스 app을 만든다!
 const port = 5000				    // port는 아무렇게 4000번해도 되고, 5000번으로 해도된다!
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');  // 쿠키에 저장
+
 const config = require("./config/key");
 
 const { User } = require("./models/User");  // User정보를 가져온다!
@@ -13,7 +40,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // application/json 을 분석해서 가지고 올 수 있게 해준것이다.
 app.use(bodyParser.json());
-app.use(cookieParser());    // 쿠키파서 사용!
 
 // Mongoose 설정
 const mongoose = require('mongoose')
@@ -43,28 +69,18 @@ app.post('/register', async (req, res) => {
     }).catch((err) => {
         res.json({ success : false, err})
     })
-})
 
-app.post('/login', async (req, res) => {
-    try {
-        const user = await User.User.findOne({ email : req.body.email })
-        if(!user) {
-            return res.json({
-                loginSuccess : false,
-                message : "제공된 이메일에 해당하는 유저가 없습니다."
-            })
-        }
-
-        const isMatch = await user. user.comparePassword(req.body.password)
-        console.log(isMatch)
-        if(!isMatch) {
-            return res.json({ loginSuccess : false, message:"비밀번호가 틀렸습니다." })
-        }
-        const token = await user.generateToken()
-        res.cookie("user_auth", token).status(200).json({ loginSuccess: true, userId: user._id })
-    } catch (err) {
-        return res.status(400).send(err)
-    }
+    // // 몽고DB에서 오는 메서드
+    // user.save((err, doc) => {
+    //     if(err) {
+    //         return res.json({ success : false, err})
+    //     }
+    //     else {
+    //         return res.status(200).json({
+    //             success: true
+    //         })
+    //     }
+    // })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))	// 5000번 포트에서 해당 앱을 실행하게끔 해주는 것이다!
