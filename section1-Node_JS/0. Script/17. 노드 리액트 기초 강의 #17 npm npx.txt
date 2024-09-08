@@ -1,0 +1,23 @@
+17. 노드 리액트 기초 강의 #17 npm npx
+
+예전에는 npm을 사용해서 다운로드를 받았었다!
+크게 보면 레지스트리 저장소 같은 역할을 한다.
+body-parser 라던지 라이브러리를 담고있는곳이 레지스트리이다.
+npm의 첫번째 역할은 라이브러리를 담고 있는 역할을 한다.
+나중에 배포를 할 때도 npm run build를 한다.
+npm에 관한것은 package.json에 담겨져 있다.
+
+NPM : Node Package Manager의 줄임말
+
+// local에 bcrypt 설치
+// ex) ./node_modules/.bin
+npm install bcrypt
+
+// global에 bcrypt 설치 (프로젝트 안에서만 다운로드가 되는것이 아니라, 컴퓨터 안에 설치가 된다!)
+// ex) /usr/local/bin
+npm install bcrypt -g
+
+- 원래 creat-react-app을 할 때 npm install -g create-areact-app 이렇게 했었다. global 디렉토리에 다운받음
+- 이제는 npx를 이용하여 그냥 이용 create-react-app을 이용 할 수 있음!
+- 왜?? npx가 npm registry에서 create-react-app을 찾아서(look up) 다운로드 없이 실행 시켜준다!
+- 좋은점? 글로벌로 하여서 머신에 다운로드 받지 않아도 되며, Disk Space를 낭비 하지 않을 수 있으며, 항상 최신 버전을 사용할 수 있다!

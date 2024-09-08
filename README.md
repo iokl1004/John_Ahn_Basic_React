@@ -33,12 +33,12 @@
 | 12   | 섹션 1. Node JS      | 노드 리액트 기초 강의 #12 토큰 생성 with jsonwebtoken       | 20240905(목)  |
 | 13   | 섹션 1. Node JS      | 노드 리액트 기초 강의 #13 Auth 기능 만들기             | 20240906(금)  |
 | 14   | 섹션 1. Node JS      | 노드 리액트 기초 강의 #14 로그아웃 기능                | 20240906(금)  |
-| 15   | 섹션 2. React JS     | 노드 리액트 기초 강의 #15 리액트란 ?                           |               |
-| 16   | 섹션 2. React JS     | 노드 리액트 기초 강의 #16 Create-React-App                     |               |
-| 17   | 섹션 2. React JS     | 노드 리액트 기초 강의 #17 npm npx                              |               |
-| 18   | 섹션 2. React JS     | 노드 리액트 기초 강의 #18 구조 설명                            |               |
-| 19   | 섹션 2. React JS     | 노드 리액트 기초 강의 #19 CRA to Our Boilerplate               |               |
-| 20   | 섹션 2. React JS     | 노드 리액트 기초 강의 #20 React Router Dom                     |               |
+| 15   | 섹션 2. React JS     | 노드 리액트 기초 강의 #15 리액트란 ?                           | 20240908(일)  |
+| 16   | 섹션 2. React JS     | 노드 리액트 기초 강의 #16 Create-React-App                     | 20240908(일)  |
+| 17   | 섹션 2. React JS     | 노드 리액트 기초 강의 #17 npm npx                              | 20240908(일)  |
+| 18   | 섹션 2. React JS     | 노드 리액트 기초 강의 #18 구조 설명                            | 20240908(일)  |
+| 19   | 섹션 2. React JS     | 노드 리액트 기초 강의 #19 CRA to Our Boilerplate               | 20240908(일)  |
+| 20   | 섹션 2. React JS     | 노드 리액트 기초 강의 #20 React Router Dom                     | 20240908(일)  |
 | 21   | 섹션 2. React JS     | 노드 리액트 기초 강의 #21 데이터 Flow & Axios               |               |
 | 22   | 섹션 2. React JS     | 노드 리액트 기초 강의 #22 CORS 이슈, Proxy 설정          |               |
 | 23   | 섹션 2. React JS     | 노드 리액트 기초 강의 #23 Proxy Server ?                       |               |
