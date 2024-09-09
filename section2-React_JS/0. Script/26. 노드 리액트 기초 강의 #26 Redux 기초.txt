@@ -1,0 +1,23 @@
+26. 노드 리액트 기초 강의 #26 Redux 기초
+
+Redux? 상태 관리 라이브러리
+
+Props
+부모컴포넌트에서 자식 컴포넌트로 props값 1을 전달해줬을때, 자식컴포넌트에서는 해당 값을 변경 할 수 없다.
+
+Redux가 없을 경우, Props 드릴링을 해야한다.
+
+Redux 데이터 Flow (strict unidirectional data flow)
+ACTION -> REDUCER -> STORE -(Subscribe)> React component -(Dispatch(action))> ACTION
+
+Action : 객체로 되어 있으며, 무엇이 일어났는지 설명하는 객체이다.
+예)
+{ type : 'LIKE_ARTICEL', articleId : 42 }
+{ type : 'FETCH_USER_SUCCESS', response : { id 3, name : 'Mary' } }
+{ type : 'ADD_TODO', text : 'Read the Redux docs.' }
+
+Reducer : 이전 State와 action Object를 받은 후에 next state를 return 한다! 변화된 state를 Retrun 해줌.
+예) 3이었던 스테이트가 action을 통해서 4로 변했다!
+(previousState, action) => nextState
+
+Store : 전체적인 스테이트를 감싸주는 역할을 함. 스토어 안에는 여러가지 메소드들이 있어서 해당 스테이트를 관리를 할 수 있음!

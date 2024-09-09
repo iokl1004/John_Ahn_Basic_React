@@ -1,11 +1,10 @@
 const express = require('express')	// express 모듈을 가져온다!
 const app = express()			    // 새로운 익스프레스 app을 만든다!
-const port = 5000				    // port는 아무렇게 4000번해도 되고, 5000번으로 해도된다!
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');  // 쿠키에 저장
-const config = require("./config/key");
-const { auth } = require('./middleware/auth');
-const { User } = require("./models/User");  // User정보를 가져온다!
+const config = require("./server/config/key");
+const { auth } = require("./server/middleware/auth");
+const { User } = require("./server/models/User");  // User정보를 가져온다!
 
 // 바디파서가 클라이언트에서 오는 정보를 서버에서 분석해서 가져오게 해준다.
 // application/x-www-form-urlencoded    이 데이터를 분석해서 가지고 올 수 있게 해준다.
@@ -28,6 +27,10 @@ mongoose.connect(config.mongoURI)
 .catch(err => console.log(err))
 
 app.get('/', (req, res) => res.send('Hello World!~~ 안녕하세요~'))	// root 디렉토리에 오면 Hello World를 출력 되게끔 해준다!
+
+app.get('/api/hello', (req, res) => {
+    res.send("안녕하세요~");
+})
 
 app.post('/api/users/register', async (req, res) => {
     // 회원가입 할 때 필요한 정보들을 client에서 가져오면
@@ -97,5 +100,7 @@ app.get('/api/users/logout', auth, (req, res) => {
             })
         })
 })
+
+const port = 5000				    // port는 아무렇게 4000번해도 되고, 5000번으로 해도된다!
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))	// 5000번 포트에서 해당 앱을 실행하게끔 해주는 것이다!

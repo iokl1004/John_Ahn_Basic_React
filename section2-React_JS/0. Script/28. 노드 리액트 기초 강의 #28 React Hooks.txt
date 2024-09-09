@@ -1,0 +1,5 @@
+28. 노드 리액트 기초 강의 #28 React Hooks
+
+Class Component와 Functional Component가 있다.
+Class Component는 Code가 길고, 성능이 느려진다...
+Functional Component는 Class Component에서 사용하지 못하는 부분들이 있다.. 이것을 해결해주는 것이 React Hooks!!

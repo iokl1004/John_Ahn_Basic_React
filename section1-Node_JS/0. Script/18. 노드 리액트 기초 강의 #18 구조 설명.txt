@@ -1,8 +1,0 @@
-18. 노드 리액트 기초 강의 #18 구조 설명
-
-public/index.html 에 <div id="root"></div> 이 구문이 있는데 이 구문은,
-src/index.js 아래 구문의 root와 이어진다!
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-webpack이 관리하는 부분은 src 폴더만 관리를 해주며, public 폴더는 관리 하지 않는다.
-그래서 이미지 파일을 넣을때는 src 폴더에 넣어준다.
