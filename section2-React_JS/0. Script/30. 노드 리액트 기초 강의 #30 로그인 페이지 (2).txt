@@ -1,3 +1,45 @@
+30. 노드 리액트 기초 강의 #30 로그인 페이지 (2)
+아래 추가
+client/src/_actions/types.js
+client/src/_actions/user_action.js
+
+(client/src/_actions/types.js)
+export const LOGIN_USER = "login_user";
+---
+(client/src/_actions/user_action.js)
+import Axios from "axios";
+import {
+    LOGIN_USER
+} from './types';
+
+export function loginUser(dataTosubmit) {
+    // 백엔드에서 가져온 데이터
+    const request = Axios.post('/api/users/login', dataTosubmit)
+    .then(response => response.data )
+
+    return {
+        type : LOGIN_USER,
+        payload : request
+
+    }
+}
+---
+(client/src/_reducers/user_reducer.js)
+import {
+    LOGIN_USER
+} from '../_actions/types';
+
+export default function ( state ={} , action )  {
+    switch (action.type) {
+        case LOGIN_USER :
+            return { ...state, loginSuccess : action.payload }
+            break;
+        default :
+            return state;
+    }
+}
+---
+(client/src/components/views/LoginPage/LoginPage.js)
 import React, { useState } from 'react'
 import Axios from 'axios'
 import { useDispatch } from 'react-redux';

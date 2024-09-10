@@ -1,3 +1,6 @@
+31. 노드 리액트 기초 강의 #31 회원 가입 페이지
+
+(client/src/components/views/RegisterPage/RegisterPage.js)
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
@@ -81,3 +84,57 @@ function RegisterPage(props) {
 }
 
 export default RegisterPage;
+---
+(client/src/_actions/user_action.js)
+import Axios from "axios";
+import {
+      LOGIN_USER
+    , REGISTER_USER 
+} from './types';
+
+export function loginUser(dataTosubmit) {
+    // 백엔드에서 가져온 데이터
+    const request = Axios.post('/api/users/login', dataTosubmit)
+    .then(response => response.data )
+
+    return {
+        type : LOGIN_USER,
+        payload : request
+
+    }
+}
+
+export function registerUser(dataTosubmit) {
+    // 백엔드에서 가져온 데이터
+    const request = Axios.post('/api/users/register', dataTosubmit)
+    .then(response => response.data )
+
+    return {
+        type : REGISTER_USER,
+        payload : request
+
+    }
+}
+---
+(client/src/_reducers/user_reducer.js)
+import {
+      LOGIN_USER
+    , REGISTER_USER
+} from '../_actions/types';
+
+export default function ( state ={} , action )  {
+    switch (action.type) {
+        case LOGIN_USER :
+            return { ...state, loginSuccess : action.payload }
+            break;
+        case REGISTER_USER :
+            return { ...state, register: action.payload }
+            break;
+        default :
+            return state;
+    }
+}
+---
+(client/src/_actions/types.js)
+export const LOGIN_USER = "login_user";
+export const REGISTER_USER = "register_user";
