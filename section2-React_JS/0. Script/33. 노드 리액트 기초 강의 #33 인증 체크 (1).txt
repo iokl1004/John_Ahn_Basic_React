@@ -1,0 +1,54 @@
+33. 노드 리액트 기초 강의 #33 인증 체크 (1)
+
+들어 갈 수 있는 페이지들에 대한 통제는 HOC
+Higher Order Component
+
+Auth(HOC)
+여기서 해당 유저가 해당 페이지에 들어갈 자격이 되는지를 알아 낸 후에 자격이 된다면 Adimn component에 가게 해주고
+아니라면 다른 페이지로 보내버린다.
+
+---
+(client/src/hoc/auth.js) 추가
+
+import Axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux'
+import { auth } from '../_actions/user_action';
+
+// option
+// null => 아무나 출입이 가능한 페이지
+// true => 로그인한 유저만 출입이 가능한 페이지
+// false => 로그인한 유저는 출입이 불가능한 페이지
+
+export default function (SpecificComponent, option, adminRoute = null) {
+    function AuthenticationCheck(props) {
+        
+        const dispatch = useDispatch();
+
+        useEffect(() => {
+            dispatch(auth()).then(response => {
+                console.log(response)
+
+                //로그인 하지 않은 상태
+                if(!response.payload.isAuth) {
+                    if(option) {
+                        props.history.push('/login')
+                    }
+                } else {
+                    // 로그인 한 상태
+                    if(adminRoute && !response.payload.isAdmin) {
+                        props.history.push('/')
+                    } else {
+                        props.history.push('/')
+                    }
+                }
+            })
+        }, [])
+
+        return (
+            <SpecificComponent />
+        )
+        
+    }
+    return AuthenticationCheck
+}

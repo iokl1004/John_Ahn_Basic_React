@@ -1,6 +1,8 @@
+32. 노드 리액트 기초 강의 #32 로그아웃
+
+(client/src/components/views/LandingPage/LandingPage.js)
 import { useEffect } from "react"
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 
 function LandingPage(props) {
     useEffect(()=> {
@@ -33,4 +35,4 @@ function LandingPage(props) {
     )
 }
 
-export default withRouter(LandingPage)
+export default LandingPage

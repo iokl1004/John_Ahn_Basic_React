@@ -1,0 +1,297 @@
+34. 노드 리액트 기초 강의 #34 인증 체크 (2) 강의 마무리.
+
+(client/src/components/views/LandingPage/LandingPage.js)
+import { useEffect } from "react"
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+
+function LandingPage(props) {
+    useEffect(()=> {
+        axios.get('/api/hello')
+        .then(response => console.log(response.data))   // 서버에서 돌아오는것을 콘솔창에 띄워본다!
+    }, [])
+
+    const onClickHandler = () => {
+        axios.get(`/api/users/logout`)
+        .then(response => {
+            if(response.data.success) {
+                props.history.push("/login")
+            } else {
+                alert('로그아웃 하는데 실패 했습니다.')
+            }
+        })
+    }
+
+    return (
+        <div style={{
+            display: 'flex', justifyContent : 'center', alignItems : 'center'
+            , width : '100%', height : '100vh'
+        }}>
+            <h2>시작 페이지</h2>
+            
+            <button onClick={onClickHandler}>
+                로그아웃
+            </button>
+        </div>
+    )
+}
+
+export default withRouter(LandingPage)
+---
+(client/src/components/views/LoginPage/LoginPage.js)
+import React, { useState } from 'react'
+import Axios from 'axios'
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../../_actions/user_action';
+import { withRouter } from 'react-router-dom';
+
+function LoginPage(props) {
+  const dispatch = useDispatch();
+
+  const [Email, setEmail] = useState("")
+  const [Password, setPassword] = useState("")
+
+  const onEmailHandler = (e) => {
+    setEmail(e.currentTarget.value)
+  }
+
+  const onPasswordHandler = (e) => {
+    setPassword(e.currentTarget.value)
+  }
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault(); // 리프레시를 방지한다!
+
+    let body = {
+      email : Email,
+      password : Password
+    }
+
+    dispatch(loginUser(body))
+        .then(response => {
+          if(response.payload.loginSuccess) {
+            props.history.push('/')
+          } else {
+            alert('Error')
+          }
+        })
+
+
+  }
+
+  return (
+    <div style={{
+        display: 'flex', justifyContent : 'center', alignItems : 'center'
+        , width : '100%', height : '100vh'
+    }}>
+        <form style= {{ display : 'flex', flexDirection : 'column' }}
+              onSubmit={onSubmitHandler}
+        >
+          <label>Email</label>
+          <input type="email" value={Email} onChange={onEmailHandler} />
+          <label>Password</label>
+          <input type="Password" value={Password} onChange={onPasswordHandler} />
+          <br />
+          <button type="submit">
+            Login
+          </button>
+        </form>
+    </div>
+  )
+}
+
+export default withRouter(LoginPage)
+---
+(client/src/components/views/RegisterPage/RegisterPage.js)
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../../_actions/user_action';
+import { withRouter } from 'react-router-dom';
+
+function RegisterPage(props) {
+  const dispatch = useDispatch();
+
+  const [Email, setEmail] = useState("")
+  const [Name, setName] = useState("")
+  const [Password, setPassword] = useState("")
+  const [ConfirmPassword, setConfirmPassword] = useState("")
+
+  const onEmailHandler = (e) => {
+    setEmail(e.currentTarget.value)
+  }
+
+  const onNameHandler = (e) => {
+    setName(e.currentTarget.value)
+  }
+
+  const onPasswordHandler = (e) => {
+    setPassword(e.currentTarget.value)
+  }
+
+  const onConfirmPasswordHandler = (e) => {
+    setConfirmPassword(e.currentTarget.value)
+  }
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault(); // 리프레시를 방지한다!
+
+    if(Password !== ConfirmPassword){
+      return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+    }
+
+    let body = {
+      email : Email,
+      name : Name,
+      password : Password
+    }
+
+    // Redux 사용으로 인한 주석!
+    // Axios.post('/api/users/register', body)
+
+    dispatch(registerUser(body))
+        .then(response => {
+          if(response.payload.success) {
+            props.history.push("/login")
+          } else {
+            alert("Failed to sign up")
+          }
+        })
+  }
+
+  return (
+    <div style={{
+        display: 'flex', justifyContent : 'center', alignItems : 'center'
+        , width : '100%', height : '100vh'
+    }}>
+        <form style= {{ display : 'flex', flexDirection : 'column' }}
+              onSubmit={onSubmitHandler}
+        >
+          <label>Email</label>
+          <input type="email" value={Email} onChange={onEmailHandler} />
+
+          <label>name</label>
+          <input type="text" value={Name} onChange={onNameHandler} />
+
+          <label>Password</label>
+          <input type="Password" value={Password} onChange={onPasswordHandler} />
+
+          <label>Confirm Password</label>
+          <input type="Password" value={ConfirmPassword} onChange={setConfirmPassword} />
+          
+          <button type="submit">
+            회원 가입
+          </button>
+        </form>
+    </div>
+  )
+}
+
+export default withRouter(RegisterPage);
+---
+(client/src/App.js)
+import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import NavBar from "./components/views/NavBar/NavBar";
+import Footer from "./components/views/Footer/Footer";
+import LandingPage from "./components/views/LandingPage/LandingPage";
+import LoginPage from "./components/views/LoginPage/LoginPage";
+import RegisterPage from "./components/views/RegisterPage/RegisterPage";
+import Auth from './hoc/auth'
+
+function App() {
+  return (
+    <>
+      <NavBar />
+        <Router>
+            <Routes>
+                {/* <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} */}
+                
+                <Route path="/" element={Auth(LandingPage, null)} />
+                <Route path="/login" element={Auth(LoginPage, true)} />
+                <Route path="/register" element={Auth(RegisterPage, false)} />
+            </Routes>
+        </Router>
+        <Footer />
+    </>
+  );
+}
+
+export default App;
+---
+(client/src/_actions/user_actions.js)
+import Axios from "axios";
+import {
+      LOGIN_USER
+    , REGISTER_USER
+    , AUTH_USER
+} from './types';
+
+export function loginUser(dataTosubmit) {
+    // 백엔드에서 가져온 데이터
+    const request = Axios.post('/api/users/login', dataTosubmit)
+    .then(response => response.data )
+
+    return {
+        type : LOGIN_USER,
+        payload : request
+
+    }
+}
+
+export function registerUser(dataTosubmit) {
+    // 백엔드에서 가져온 데이터
+    const request = Axios.post('/api/users/register', dataTosubmit)
+    .then(response => response.data )
+
+    return {
+        type : REGISTER_USER,
+        payload : request
+
+    }
+}
+
+export function auth(dataTosubmit) {
+    // 백엔드에서 가져온 데이터
+    const request = Axios.post('/api/users/auth')
+    .then(response => response.data )
+
+    return {
+        type : AUTH_USER,
+        payload : request
+
+    }
+}
+---
+(client/src/_actions/types.js)
+export const LOGIN_USER = "login_user";
+export const REGISTER_USER = "register_user";
+export const AUTH_USER = "auth_user";
+---
+(client/src/_reducers/user_reducer.js)
+import {
+      LOGIN_USER
+    , REGISTER_USER
+    , AUTH_USER
+} from '../_actions/types';
+
+export default function ( state ={} , action )  {
+    switch (action.type) {
+        case LOGIN_USER :
+            return { ...state, loginSuccess : action.payload }
+            break;
+        case REGISTER_USER :
+            return { ...state, register: action.payload }
+            break;
+        case AUTH_USER :
+            return { ...state, userData: action.payload }
+            break;
+        default :
+            return state;
+    }
+}
